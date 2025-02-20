@@ -12,6 +12,10 @@ def main():
     dt_s = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
+    updateables_g = pygame.sprite.Group()
+    drawables_g = pygame.sprite.Group()
+    plyr.Player.containers = updateables_g, drawables_g
+    
     player = plyr.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     
     while(True):
@@ -23,8 +27,10 @@ def main():
         screen.fill((0, 0, 0))
             
         
-        player.update(dt_s)
-        player.draw(screen)
+        updateables_g.update(dt_s)
+        
+        for drawable in drawables_g:
+            drawable.draw(screen)
         
         
         pygame.display.flip()
