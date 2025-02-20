@@ -1,7 +1,7 @@
 import pygame
 from constants import *
+import player as plyr
 
-FPS=60
 
 def main():
     print('Starting asteroids!')
@@ -12,15 +12,21 @@ def main():
     dt_s = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
+    player = plyr.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    
     while(True):
         
         # event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
-        
         screen.fill((0, 0, 0))
+            
+        
+        player.update(dt_s)
+        player.draw(screen)
+        
+        
         pygame.display.flip()
         
         # wait for 1 frame and compute delta time
