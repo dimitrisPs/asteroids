@@ -35,8 +35,14 @@ def main():
         
         updateables_g.update(dt_s)
         
+        for asteroid in asteroirds_g:
+            if asteroid.colides(player):
+                print('Game Over!')
+                return
+        
         for drawable in drawables_g:
             drawable.draw(screen)
+        
         
         
         pygame.display.flip()
