@@ -7,6 +7,7 @@ class Player(circleshape.CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, constants.PLAYER_RADIUS)
         self.rotation = 0
+        self.spawn_timer = 0.0
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
@@ -21,6 +22,7 @@ class Player(circleshape.CircleShape):
         self.rotation += constants.PLAYER_TURN_SPEED * dt
     
     def update(self, dt):
+        self.spawn_timer -= dt
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
@@ -32,7 +34,9 @@ class Player(circleshape.CircleShape):
         if keys[pygame.K_s]:
             self.move(-dt)
         if keys[pygame.K_SPACE]:
-            self.shoot()
+            if self.spawn_timer < 0:
+                self.spawn_timer = constants.ASTEROID_SPAWN_RATE
+                self.shoot()
     
     def move(self,dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
