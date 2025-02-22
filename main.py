@@ -1,7 +1,8 @@
 import pygame
 from constants import *
 import player as plyr
-
+import asteroid as astr
+from asteroidfield import AsteroidField
 
 def main():
     print('Starting asteroids!')
@@ -14,9 +15,14 @@ def main():
     
     updateables_g = pygame.sprite.Group()
     drawables_g = pygame.sprite.Group()
+    asteroirds_g = pygame.sprite.Group()
+    
+    astr.Asteroid.containers = updateables_g, drawables_g, asteroirds_g
+    AsteroidField.containers = updateables_g
     plyr.Player.containers = updateables_g, drawables_g
     
     player = plyr.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    asteroid_field = AsteroidField()
     
     while(True):
         
